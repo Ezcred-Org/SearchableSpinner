@@ -28,6 +28,7 @@ public class SearchableSpinner extends Spinner implements View.OnTouchListener,
     private ArrayAdapter _arrayAdapter;
     private String _strHintText;
     private boolean _isFromInit;
+    private boolean _fullTextSearchRequired = true;
 
     public SearchableSpinner(Context context) {
         super(context);
@@ -127,7 +128,12 @@ public class SearchableSpinner extends Spinner implements View.OnTouchListener,
         }
     }
 
-    public void setTitle(String strTitle) {
+  @Override
+  public boolean fullSearchOnTextNeeded() {
+    return _fullTextSearchRequired;
+  }
+
+  public void setTitle(String strTitle) {
         _searchableListDialog.setTitle(strTitle);
     }
 
@@ -141,6 +147,14 @@ public class SearchableSpinner extends Spinner implements View.OnTouchListener,
 
     public void setOnSearchTextChangedListener(SearchableListDialog.OnSearchTextChanged onSearchTextChanged) {
         _searchableListDialog.setOnSearchTextChangedListener(onSearchTextChanged);
+    }
+
+    public boolean isFullTextSearchRequired() {
+        return _fullTextSearchRequired;
+    }
+
+    public void setFullTextSearchRequired(boolean fullTextSearchRequired) {
+        this._fullTextSearchRequired = fullTextSearchRequired;
     }
 
     private Activity scanForActivity(Context cont) {
